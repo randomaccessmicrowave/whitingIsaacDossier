@@ -32,7 +32,7 @@ public class SecretAgent {
         // even the date. Turning text into a number is Part 2's job.
         System.out.println("=== AGENCY INTAKE ===");
         System.out.print("Full name (First Middle Last, or First Last): ");
-        String fullName = keyboard.nextLine();
+        String name = keyboard.nextLine();
         System.out.print("Date of birth (YYYY-MM-DD): ");
         String dob = keyboard.nextLine();
         System.out.print("Email: ");
@@ -50,34 +50,18 @@ public class SecretAgent {
         //                            rest  = "Elizabeth Lee"
         //   Now look for a space INSIDE rest.
 
-        int firstSpace  = 0;     // TODO: where is the first space in fullName?
-        String first    = "";    // TODO: everything before it
-        String rest     = "";    // TODO: everything after it
-        int secondSpace = 0;     // TODO: where is the space inside rest?
-
-        // NOT a TODO - leave these three lines alone.
-        // They are declared HERE, before the if, so they still exist after it.
-        // The if below is where they get their real values.
-        String middle   = "";
-        String last     = "";
+        String first = name.substring(0, name.indexOf(" "));
+        String rest = name.substring(name.indexOf(" ")+1);
         String initials = "";
+        String last= "";
 
-        // YOUR FIRST if STATEMENT.
-        // indexOf gives back -1 when it cannot find what you asked for.
-        // So if there is no space inside rest, this agent has no middle name.
-        // Java runs the first block if the condition is true, the second if not.
-        // Fill in both blocks. Each one must set last and initials.
-
-        if (secondSpace == -1) {
-            // Two names, e.g. "Maya Adams".  rest is the last name.
-            // TODO: last = ...
-            // TODO: initials = ...          -> "MA"
+        if(rest.indexOf(" ") == -1) {
+            last = rest;
+            initials = first.substring(0,1) + rest.substring(0,1);
 
         } else {
-            // Three names, e.g. "Regina Elizabeth Lee".
-            // TODO: middle = ...            everything in rest before the space
-            // TODO: last = ...              everything in rest after the space
-            // TODO: initials = ...          -> "REL"
+            last = rest.substring(rest.indexOf(" ")+1);
+            initials = first.substring(0,1) + rest.substring(0,1) + last.substring(0,1);
 
         }
 
@@ -91,12 +75,12 @@ public class SecretAgent {
         // If any line in it throws, Java jumps straight to the matching catch.
 
         try {
-            String year  = "";   // TODO: substring
-            String month = "";   // TODO: substring
-            String day   = "";   // TODO: substring
+            String year  = dob.substring(0,3);   // TODO: substring
+            String month = dob.substring(5,7);   // TODO: substring
+            String day   = dob.substring(9,11);   // TODO: substring
             int birthYear = Integer.parseInt(year);
 
-            // TODO: print   Born: 09/30/2009 (month/day/year)
+            System.out.println("");
 
             // TODO: print   Age(end 2026): 17 (2026 - birthYear)
 
@@ -133,7 +117,6 @@ public class SecretAgent {
         // ==== PART 4 - THE FILING CABINET ===================================
         // Agents are filed alphabetically by last name.
         // compareTo gives a negative number if last comes BEFORE handler.
-
         int order = 0;         // TODO: compare last to handler with compareTo
 
         System.out.println("Filing check:    \"" + last + "\".compareTo(\"" + handler + "\") = " + order);
