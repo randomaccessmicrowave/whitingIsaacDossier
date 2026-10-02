@@ -75,20 +75,14 @@ public class SecretAgent {
         // If any line in it throws, Java jumps straight to the matching catch.
 
         try {
-            String year  = dob.substring(0,3);   // TODO: substring
-            String month = dob.substring(5,7);   // TODO: substring
-            String day   = dob.substring(9,11);   // TODO: substring
+            String year  = dob.substring(0,4);   // TODO: substring
+            String month = dob.substring(5,8);   // TODO: substring
+            String day   = dob.substring(9);   // TODO: substring
             int birthYear = Integer.parseInt(year);
 
-            System.out.println("");
+            System.out.println("Age(end 2026: " + (2026-birthYear));
 
-            // TODO: print   Age(end 2026): 17 (2026 - birthYear)
-
-            // TODO: build and print the Agent ID:
-            //       first initial + last name, both lowercase, then the last
-            //       TWO characters of year.     "R" + "Lee" + "09" -> rlee09
-            //       Use year.length() to find where the last two start.
-            //       use toLowerCase()
+            System.out.println(("ID = " + (initials.substring(0,1) + last + year.substring(2,4)).toLowerCase()));
 
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("DATE OF BIRTH:   CORRUPTED - too short for YYYY-MM-DD");
@@ -100,15 +94,14 @@ public class SecretAgent {
         // ==== PART 3 - THE EMAIL  (Problem 3 from slides) ===================
         // The domain is everything AFTER the @.
 
-        int at        = 0;     // TODO: where is the @ ?
-        String domain = "";    // TODO: everything after it   (think about the + 1)
+        int at        = email.indexOf("@");     // TODO: where is the @ ?
+        String domain = email.substring(at+1);    // TODO: everything after it   (think about the + 1)
 
         // TODO: YOUR SECOND if STATEMENT - change this to use equals, not ==.
-        if (domain == (agencyDomain)) {
-            // TODO: print   Clearance:       GRANTED - agency email verified
-
+        if (domain.equals(agencyDomain)) {
+            System.out.println("Clearance: GRANTED - agency email verified");
         } else {
-            // TODO: print   Clearance:       DENIED - gmail.com is not an agency address
+            System.out.println("Clearance: DENIED -" + domain +"is not an agency address");
             //       (use the real domain, not the word gmail.com)
 
         }
@@ -117,15 +110,15 @@ public class SecretAgent {
         // ==== PART 4 - THE FILING CABINET ===================================
         // Agents are filed alphabetically by last name.
         // compareTo gives a negative number if last comes BEFORE handler.
-        int order = 0;         // TODO: compare last to handler with compareTo
+        int order = last.compareTo(handler);         // TODO: compare last to handler with compareTo
 
         System.out.println("Filing check:    \"" + last + "\".compareTo(\"" + handler + "\") = " + order);
 
         if (order < 0) {
-            // TODO: print   Filed BEFORE your handler, Agent Gesell.
+            System.out.println("Filed BEFORE your handler, Agent Gesell.");
 
         } else {
-            // TODO: print   Filed AFTER your handler, Agent Gesell.
+            System.out.println("Filed AFTER your handler, Agent Gesell.");
 
         }
 
@@ -133,8 +126,10 @@ public class SecretAgent {
         // ==== TAKE IT FURTHER - extra credit, do these LAST =================
         // TIF 1  Code name: move the first letter of the first name to the
         //        end and add "ay".          Regina -> eginaRay
+        System.out.println("Code name:" + first.substring(1) + first.substring(0,1)+"ay");
         // TIF 2  Masked contact: first letter of the email, then ***@ and
         //        the domain.                r***@bvsd.org
+        System.out.println("Masked contact:" + email.substring(0,1) + "***@" + domain);
         // TIF 3  A border that fits the name. Start from a long String of
         //        = signs like like String border = "=======================" and cut
 		//        it to fullName.length() + 4. Print it above
